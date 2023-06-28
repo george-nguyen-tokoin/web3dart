@@ -9,13 +9,13 @@ class _SigningInput {
 
   final Transaction transaction;
   final Credentials credentials;
-  final int? chainId;
+  final BigInt? chainId;
 }
 
 Future<_SigningInput> _fillMissingData({
   required Credentials credentials,
   required Transaction transaction,
-  int? chainId,
+  BigInt? chainId,
   bool loadChainIdFromNetwork = false,
   Web3Client? client,
 }) async {
@@ -103,7 +103,7 @@ Uint8List prependTransactionType(int type, Uint8List transaction) {
 Uint8List _signTransaction(
   Transaction transaction,
   Credentials c,
-  int? chainId,
+  BigInt? chainId,
 ) {
   if (transaction.isEIP1559 && chainId != null) {
     final encodedTx = LengthTrackingByteSink();
