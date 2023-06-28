@@ -36,7 +36,7 @@ abstract class Credentials {
   @Deprecated('Please use [signToUint8List]')
   Future<Uint8List> sign(
     Uint8List payload, {
-    int? chainId,
+    BigInt? chainId,
     bool isEIP1559 = false,
   }) async {
     final signature =
@@ -56,7 +56,7 @@ abstract class Credentials {
   /// The [payload] parameter contains the raw data, not a hash.
   Uint8List signToUint8List(
     Uint8List payload, {
-    int? chainId,
+    BigInt? chainId,
     bool isEIP1559 = false,
   }) {
     final signature =
@@ -75,7 +75,7 @@ abstract class Credentials {
   @Deprecated('Please use [signToEcSignature]')
   Future<MsgSignature> signToSignature(
     Uint8List payload, {
-    int? chainId,
+    BigInt? chainId,
     bool isEIP1559 = false,
   });
 
@@ -83,7 +83,7 @@ abstract class Credentials {
   /// signature.
   MsgSignature signToEcSignature(
     Uint8List payload, {
-    int? chainId,
+    BigInt? chainId,
     bool isEIP1559 = false,
   });
 
@@ -91,7 +91,7 @@ abstract class Credentials {
   /// [sign], but with a special prefix so that this method can't be used to
   /// sign, for instance, transactions.
   @Deprecated('Please use [signPersonalMessageToUint8List]')
-  Future<Uint8List> signPersonalMessage(Uint8List payload, {int? chainId}) {
+  Future<Uint8List> signPersonalMessage(Uint8List payload, {BigInt? chainId}) {
     final prefix = _messagePrefix + payload.length.toString();
     final prefixBytes = ascii.encode(prefix);
 
@@ -104,7 +104,7 @@ abstract class Credentials {
   /// Signs an Ethereum specific signature. This method is equivalent to
   /// [signToUint8List], but with a special prefix so that this method can't be used to
   /// sign, for instance, transactions.
-  Uint8List signPersonalMessageToUint8List(Uint8List payload, {int? chainId}) {
+  Uint8List signPersonalMessageToUint8List(Uint8List payload, {BigInt? chainId}) {
     final prefix = _messagePrefix + payload.length.toString();
     final prefixBytes = ascii.encode(prefix);
 
@@ -184,14 +184,14 @@ class EthPrivateKey extends CredentialsWithKnownAddress {
   @override
   Future<MsgSignature> signToSignature(
     Uint8List payload, {
-    int? chainId,
+    BigInt? chainId,
     bool isEIP1559 = false,
   }) async {
     final signature = secp256k1.sign(keccak256(payload), privateKey);
 
     // https://github.com/ethereumjs/ethereumjs-util/blob/8ffe697fafb33cefc7b7ec01c11e3a7da787fe0e/src/signature.ts#L26
     // be aware that signature.v already is recovery + 27
-    int chainIdV;
+    BigInt chainIdV;
     if (isEIP1559) {
       chainIdV = signature.v - 27;
     } else {
@@ -205,14 +205,14 @@ class EthPrivateKey extends CredentialsWithKnownAddress {
   @override
   MsgSignature signToEcSignature(
     Uint8List payload, {
-    int? chainId,
+    BigInt? chainId,
     bool isEIP1559 = false,
   }) {
     final signature = secp256k1.sign(keccak256(payload), privateKey);
 
     // https://github.com/ethereumjs/ethereumjs-util/blob/8ffe697fafb33cefc7b7ec01c11e3a7da787fe0e/src/signature.ts#L26
     // be aware that signature.v already is recovery + 27
-    int chainIdV;
+    BigInt chainIdV;
     if (isEIP1559) {
       chainIdV = signature.v - 27;
     } else {
