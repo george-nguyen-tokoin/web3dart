@@ -10,7 +10,7 @@ class Token extends _i1.GeneratedContract {
   Token(
       {required _i1.EthereumAddress address,
       required _i1.Web3Client client,
-      int? chainId})
+      BigInt? chainId})
       : super(_i1.DeployedContract(_contractAbi, address), client, chainId);
 
   /// The optional [transaction] parameter can be used to override parameters
