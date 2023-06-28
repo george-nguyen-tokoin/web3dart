@@ -62,7 +62,7 @@ class MsgSignature {
   MsgSignature(this.r, this.s, this.v);
   final BigInt r;
   final BigInt s;
-  final int v;
+  final BigInt v;
 }
 
 /// Signs the hashed data in [messageHash] using the given private key.
