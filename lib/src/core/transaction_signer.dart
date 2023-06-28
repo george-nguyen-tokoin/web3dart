@@ -80,7 +80,7 @@ Future<_SigningInput> _fillMissingData({
     maxFeePerGas: maxFeePerGas,
   );
 
-  int resolvedChainId;
+  BigInt resolvedChainId;
   if (!loadChainIdFromNetwork) {
     resolvedChainId = chainId!;
   } else {
