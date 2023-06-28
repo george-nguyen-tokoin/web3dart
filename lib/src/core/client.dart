@@ -326,7 +326,7 @@ class Web3Client {
   Future<String> sendTransaction(
     Credentials cred,
     Transaction transaction, {
-    int? chainId = 1,
+    BigInt? chainId = 1,
     bool fetchChainIdFromNetworkId = false,
   }) async {
     if (cred is CustomTransactionSender) {
@@ -369,7 +369,7 @@ class Web3Client {
   Future<Uint8List> signTransaction(
     Credentials cred,
     Transaction transaction, {
-    int? chainId = 1,
+    BigInt? chainId = 1,
     bool fetchChainIdFromNetworkId = false,
   }) async {
     final signingInput = await _fillMissingData(
