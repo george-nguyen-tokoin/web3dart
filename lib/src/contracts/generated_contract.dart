@@ -10,7 +10,7 @@ abstract class GeneratedContract {
   GeneratedContract(this.self, this.client, this.chainId);
   final DeployedContract self;
   final Web3Client client;
-  final int? chainId;
+  final BigInt? chainId;
 
   /// Returns whether the [function] has the [expected] selector.
   ///
